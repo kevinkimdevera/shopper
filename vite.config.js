@@ -8,7 +8,7 @@ export default defineConfig(() => {
 
   return {
     // Set the host from environment variable
-    base: env.VITE_BASE_URL,
+    base: env.VITE_APP_BASE_URL,
 
     // Vite plugins
     plugins: [
