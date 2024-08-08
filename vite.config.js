@@ -18,12 +18,12 @@ export default defineConfig(() => {
     // Resolve options
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, 'src'),
-        '@assets': path.resolve(__dirname, 'src/assets'),
-        '@composables': path.resolve(__dirname, 'src/composables'),
-        '@components': path.resolve(__dirname, 'src/components'),
-        '@layouts': path.resolve(__dirname, 'src/layouts'),
-        '@pages': path.resolve(__dirname, 'src/pages'),
+        '@': path.resolve(__dirname, './src'),
+        '@assets': path.resolve(__dirname, './src/assets'),
+        '@composables': path.resolve(__dirname, './src/composables'),
+        '@components': path.resolve(__dirname, './src/components'),
+        '@layouts': path.resolve(__dirname, './src/layouts'),
+        '@pages': path.resolve(__dirname, './src/pages'),
       }
     }
   }
