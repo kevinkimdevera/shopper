@@ -74,7 +74,7 @@
     <section class="my-9">
       <h1 class="text-3xl font-bold my-9">Products</h1>
 
-      <div class="grid grid-cols-6 gap-4 my-9">
+      <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 my-9">
         <template v-if="loadingProducts">
           <div class="flex w-52 flex-col gap-4" v-for="(item, index) in 6" :key="index">
             <div class="skeleton h-32 w-full"></div>
@@ -108,7 +108,7 @@
     <section class="my-9">
       <h1 class="text-3xl font-bold my-9">Categories</h1>
 
-      <div class="grid grid-cols-5 gap-4 my-9">
+      <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 my-9">
         <template v-if="loadingCategories">
           <div class="flex w-full flex-col gap-4" v-for="(item, index) in 5" :key="index">
             <div class="skeleton aspect-square w-full"></div>
@@ -119,7 +119,7 @@
           <template v-for="category in categories">
             <d-card class="image-full" bordered>
               <template #title>
-                <h3 class="text-3xl">{{ category.name }}</h3>
+                <h3 class="text-lg md:text-xl lg:text-2xl">{{ category.name }}</h3>
               </template>
               <template #image-top>
                 <img class="product-img" :src="category.image" :alt="category.name"
