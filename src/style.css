@@ -1,0 +1,102 @@
+/* Material Icons */
+@font-face {
+  font-family: 'Material Icons Outlined';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v109/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUce.woff2) format('woff2');
+}
+
+/* TailwindCSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Poppins", "Helvetica Neue", sans-serif !important;
+    @apply antialiased min-h-full bg-base-100;
+  }
+  
+  .material-icons-outlined {
+    font-family: 'Material Icons Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  .icon {
+    @apply material-icons-outlined;
+  }
+}
+
+@layer components {
+  .form-input {
+    @apply focus:outline-none !important;
+  }
+
+  .btn {
+    /* Disabled */
+    &[disabled] {
+        @apply bg-gray-700 text-gray-500 cursor-not-allowed !important;
+    }
+
+    .loading {
+        @apply hidden
+    }
+
+    &.btn-loading {
+        .loading {
+            @apply inline-block
+        }
+    }
+
+    .btn-container {
+        @apply flex items-center justify-center gap-2
+    }
+
+    &.btn-square.btn-loading,
+    &.btn-circle.btn-loading {
+        .btn-container {
+            @apply hidden
+        }
+    }
+
+    &.btn-sm {
+        .icon {
+            @apply text-sm !important;
+        }
+    }
+
+    &.btn-xs {
+        .icon {
+            @apply text-xs !important;
+        }
+    }
+  }
+
+  .input-group {
+    @apply flex gap-2 w-full;
+    @apply bg-base-200 p-2 rounded-lg;
+
+    &:focus-within {
+        @apply bg-base-100 !important;
+    }
+
+    .form-input {
+        @apply bg-transparent border-0 input-sm;
+    }
+
+    .btn {
+        @apply btn-ghost text-base-content btn-sm;
+    }
+  }
+}

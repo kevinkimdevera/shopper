@@ -1,0 +1,101 @@
+<script setup>
+import { computed } from 'vue';
+import store from '../../store';
+
+  const props = defineProps({
+    modelValue: {
+      type: Boolean,
+      default: false,
+    },
+    product: {
+      type: [Object, null],
+    }
+  })
+
+  const emit = defineEmits([
+    'update:modelValue',
+  ])
+
+  const productId = computed(() => {
+    return props.product?.id
+  })
+
+  const alreadyInCart = computed(() => {
+    return store.getters['cart/exists'](productId.value)
+  })
+
+  const productTitle = computed(() => {
+    return props.product?.title
+  })
+
+  const productDescription = computed(() => {
+    return props.product?.description
+  })
+
+  const productPrice = computed(() => {
+    return props.product?.price
+  })
+
+  const productCategory = computed(() => {
+    return props.product?.category
+  })
+
+  const productImage = computed(() => {
+    return props.product?.image
+  })
+
+  const model = computed({
+    get: () => props.modelValue,
+    set: (value) => {
+      emit('update:modelValue', value)
+    }
+  })
+
+  const addToCart = () => {
+    store.dispatch('cart/addItem', props.product)
+  }
+
+  const removeFromCart = () => {
+    store.dispatch('cart/removeItem', productId.value)
+  }
+</script>
+
+<template>
+  <div>
+    <input id="product_modal" type="checkbox" class="modal-toggle" v-model="model" />
+    <div class="modal" role="dialog">
+      <label class="modal-backdrop" for="product_modal">Close</label>
+      <d-card class="modal-box p-0">
+        <label for="product_modal" class="btn btn-sm btn-circle absolute right-[1rem] top-[1rem]">
+          <span class="icon">close</span>
+        </label>
+
+        <template #title>
+          {{ productTitle }}
+        </template>
+
+        <template #image-top>
+          <img class="product-img" :src="productImage" :alt="productTitle" />
+        </template>
+
+        <p class="text-primary font-bold text-3xl">&dollar; {{ productPrice }}</p>
+
+        <p class="my-5">{{ productDescription }}</p>
+
+        <template #actions>
+          <d-button class="w-full" color="error" @click="removeFromCart" v-if="alreadyInCart">
+            Remove From Cart
+          </d-button>
+
+          <d-button class="w-full" color="primary" @click="addToCart" v-else>
+            Add To Cart
+          </d-button>
+        </template>
+      </d-card>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+
+</style>
