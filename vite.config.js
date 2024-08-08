@@ -8,13 +8,7 @@ export default defineConfig(() => {
 
   return {
     // Set the host from environment variable
-    server: {
-      host: env.VITE_APP_HOST,
-      port: env.VITE_APP_PORT,
-      watch: {
-        usePolling: true
-      }
-    },
+    base: env.VITE_BASE_URL,
 
     // Vite plugins
     plugins: [
