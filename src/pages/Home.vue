@@ -123,7 +123,7 @@
               </template>
               <template #image-top>
                 <img class="product-img" :src="category.image" :alt="category.name"
-                  onerror="this.src='/images/tag.png'"
+                  onerror="this.src='images/tag.png'"
                 />
               </template>
             </d-card>
@@ -138,7 +138,7 @@
 
 <style scoped lang="postcss">
   .hero {
-    background: url('/images/hero.jpg');
+    background: url('images/hero.jpg');
     background-size: cover;
     background-position: center;
   }
