@@ -138,7 +138,7 @@
 
 <style scoped lang="postcss">
   .hero {
-    background: url('images/hero.jpg');
+    background: url('/images/hero.jpg');
     background-size: cover;
     background-position: center;
   }
