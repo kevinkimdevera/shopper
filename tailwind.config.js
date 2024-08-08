@@ -1,12 +1,10 @@
-import { watch } from 'vue';
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    './index.html',
-    './src/**/*.html',
-    './src/**/*.js',
-    './src/**/*.vue',
+    'index.html',
+    'src/**/*.html',
+    'src/**/*.js',
+    'src/**/*.vue',
   ],
 
   theme: {
