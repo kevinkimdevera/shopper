@@ -15,8 +15,13 @@ const routes = [
   }
 ];
 
+// Base URL From env
+const baseURL = import.meta.env.VITE_APP_BASE_URL;
+
+console.log(baseURL);
+
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(baseURL),
   routes,
 });
 
