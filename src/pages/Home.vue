@@ -26,31 +26,7 @@
 
   const getProducts = async (params) => {
     loadingProducts.value = true
-
-    let response = await store.dispatch('product/fetchProducts', params)
-
-    if (response) {
-      products.value = response.map(product => {
-        let productImage = product.images[0];
-
-        /// There's an instance where the product image is a stringified JSON
-        try {
-          productImage = JSON.parse(productImage)[0]
-        } catch (error) {
-          //
-        }
-
-        return {
-          id: product.id,
-          title: product.title,
-          description: product.description,
-          price: parseFloat(product.price),
-          image: productImage,
-          category: product.category.name
-        }
-      })
-    }
-
+    products.value = await store.dispatch('product/fetchProducts', params)
     loadingProducts.value = false
   }
 
@@ -95,7 +71,7 @@
     <section class="my-9">
       <h1 class="text-3xl font-bold my-9">Categories</h1>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 my-9">
+      <div class="categories-grid my-9">
         <template v-if="loadingCategories">
           <div class="flex w-full flex-col gap-4" v-for="(item, index) in 5" :key="index">
             <div class="skeleton aspect-square w-full"></div>
@@ -103,20 +79,11 @@
         </template>
 
         <template v-else>
-          <template v-for="category in categories">
-            <router-link :to="{ name: 'categories.view', params: { id: category.id } }">
-              <d-card class="category-card image-full" bordered>
-                <template #title>
-                  <h3 class="text-lg md:text-xl lg:text-2xl">{{ category.name }}</h3>
-                </template>
-                <template #image-top>
-                  <img class="product-img" :src="category.image" :alt="category.name"
-                    onerror="this.src='images/tag.png'"
-                  />
-                </template>
-              </d-card>
-            </router-link>
-          </template>
+          <category-card
+            v-for="category in categories"
+            :key="`category-card-${category.id}`"
+            :category="category">
+          </category-card>
         </template>
       </div>
 
@@ -129,7 +96,7 @@
     <section class="my-9">
       <h1 class="text-3xl font-bold my-9">Products</h1>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 my-9">
+      <div class="products-grid my-9">
         <template v-if="loadingProducts">
           <div class="flex w-full flex-col gap-4" v-for="(item, index) in 6" :key="index">
             <div class="skeleton aspect-square w-full"></div>
@@ -140,19 +107,13 @@
         </template>
 
         <template v-else>
-          <template v-for="product in products">
-            <d-card class="product-card" bordered compact @click="viewProduct(product)">
-              <template #title>
-                <div class="text-lg">{{ product.title }}</div>
-              </template>
-              <template #image-top>
-                <img class="product-img" :src="product.image" :alt="product.name" />
-              </template>
-
-              <p class="text-sm">{{ product.category }}</p>
-              <p class="text-primary font-bold text-xl">&dollar; {{ product.price.toLocaleString('en-US', { minimumFractionDigits: 2 }) }}</p>
-            </d-card>
-          </template>
+          <product-card
+            v-for="product in products"
+            :key="`product-card-${product.id}`"
+            show-category
+            :product="product"
+            @clicked="viewProduct">
+          </product-card>
         </template>
       </div>
 
@@ -173,26 +134,11 @@
     background-position: center;
   }
 
-  .product-img {
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+  .categories-grid {
+    @apply grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4;
   }
 
-  .card {
-    @apply cursor-pointer shadow-xl hover:shadow-2xl;
-
-    &.category-card {
-      @apply aspect-square;
-    }
-
-    &.img-full {
-      figure {
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-    }
+  .products-grid {
+    @apply grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4;
   }
 </style>

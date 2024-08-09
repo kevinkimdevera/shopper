@@ -8,15 +8,7 @@
 
   const loadingCategories = ref(false)
   const categories = computed(() => {
-    let categories = store.getters['category/allCategories']
-
-    return categories.map(category => {
-      return {
-        id: category.id,
-        name: category.name,
-        image: category.image
-      }
-    })
+    return store.getters['category/allCategories']
   })
 
   const getCategories = async () => {
@@ -40,7 +32,7 @@
   </div>
 
   <template v-if="loadingCategories">
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    <div class="categories-grid">
       <div class="flex w-full flex-col gap-4" v-for="(item, index) in 12" :key="index">
         <div class="skeleton aspect-square w-full"></div>
       </div>
@@ -59,27 +51,21 @@
   </template> 
 
   <template v-else>
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-      <div v-for="category in categories" :key="category.id">
-        <router-link :to="{ name: 'categories.view', params: { id: category.id } }">
-          <d-card class="category-card image-full" bordered>
-            <template #image-top>
-              <img class="product-img" :src="category.image" :alt="category.name"
-                onerror="this.src='images/tag.png'"
-              />
-            </template>
-            <template #title>
-              <h3 class="text-lg md:text-xl lg:text-2xl">{{ category.name }}</h3>
-            </template>
-            
-          </d-card>
-        </router-link>
-      </div>
+    <div class="categories-grid">
+      <category-card
+        v-for="category in categories"
+        :key="`category-card-${category.id}`"
+        :category="category">
+      </category-card>
     </div>
   </template>
 </template>
 
 <style scoped lang="postcss">
+  .categories-grid {
+    @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4;
+  }
+
   .card {
     @apply cursor-pointer shadow-xl hover:shadow-2xl;
 
