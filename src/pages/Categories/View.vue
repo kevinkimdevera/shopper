@@ -40,48 +40,14 @@
       })
   }
 
-  const search = ref(null)
-  const priceMin = ref(null)
-  const priceMax = ref(null)
-
-  const hasFilters = computed(() => {
-    return search.value || priceMin.value || priceMax.value
-  })
-
-  const resetFilters = () => {
-    if (!hasFilters.value) {
-      return
-    }
-
-    search.value = null
-    priceMin.value = null
-    priceMax.value = null
-
-    getProducts()
-  }
-
-  const getProducts = async () => {
+  const getProducts = async (filters = {}) => {
     loadingProducts.value = true
 
-    let priceMinValue = priceMin.value
-    let priceMaxValue = priceMax.value
-
-    // If priceMin is present and priceMax is not
-    if (priceMinValue && !priceMaxValue) {
-      priceMaxValue = 999999999;
-    }
-
-    // If priceMax is present and priceMin is not
-    if (priceMaxValue && !priceMinValue) {
-      priceMinValue = 1;
-    }
-
-    products.value = await store.dispatch('product/fetchProducts', {
+    let f = {
       categoryId: props.id,
-      title: search.value,
-      price_min: priceMinValue,
-      price_max: priceMaxValue
-    })
+      ...filters
+    }
+    products.value = await store.dispatch('product/fetchProducts', f)
 
     loadingProducts.value = false
   }
@@ -135,20 +101,7 @@
     </div>
     <div class="divider"></div>
 
-    <form class="flex flex-col md:flex-row gap-3" @submit.prevent="getProducts">
-      <div class="flex-1">
-        <d-input placeholder="Search products" bordered v-model="search" />
-      </div>
-      <div class="flex flex-none gap-3 items-center">
-        <d-input type="number" min="0" placeholder="Price (Min)" bordered class="w-1/4" v-model="priceMin" />
-        <span>-</span>
-        <d-input type="number" min="0" placeholder="Price (Max)" bordered class="w-1/4" v-model="priceMax" />
-      </div>
-      <div class="flex flex-none justify-end gap-3">
-        <d-button color="neutral" type="button" @click="resetFilters">Reset</d-button>
-        <d-button color="primary" type="submit" :loading="(loadingProducts && hasFilters)">Search</d-button>
-      </div>
-    </form>
+    <product-filter :loading="loadingProducts" @filter="getProducts"></product-filter>
 
     <template v-if="loadingProducts">
       <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 my-9">
@@ -189,28 +142,3 @@
   <!-- Product Details Modal -->
   <product-modal v-model="productModalVisible" :product="selectedProduct"></product-modal>
 </template>
-
-<style scoped lang="postcss">
-  .product-img {
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-  }
-
-  .card {
-    @apply cursor-pointer shadow-xl hover:shadow-2xl;
-
-    &.category-card {
-      @apply aspect-square;
-    }
-
-    &.img-full {
-      figure {
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-    }
-  }
-</style>

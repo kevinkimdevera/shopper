@@ -25,6 +25,7 @@ import DModal from '@components/ui/Modal.vue';
 import CategoryCard from '@components/ui/CategoryCard.vue';
 import ProductCard from '@components/ui/ProductCard.vue';
 import ProductModal from '@components/ui/ProductModal.vue';
+import ProductFilter from '@components/ui/ProductFilter.vue';
 
 // Form Components
 import DInput from '@components/form/InputText.vue'
@@ -47,6 +48,7 @@ app.component('d-textarea', DTextarea);
 app.component('category-card', CategoryCard);
 app.component('product-card', ProductCard);
 app.component('product-modal', ProductModal);
+app.component('product-filter', ProductFilter);
 
 app.use(router)
   .use(store)

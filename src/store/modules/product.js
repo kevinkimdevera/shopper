@@ -8,8 +8,8 @@ const state = {
   price: null,
   price_min: null,
   price_max: null,
-  offset: 0,
-  limit: 10,
+  offset: null,
+  limit: null,
 }
 
 const getters = {
@@ -26,7 +26,7 @@ const getters = {
   }
 }
 
-const mutations = { 
+const mutations = {
   setSearch (state, search) {
     state.search = search
   },

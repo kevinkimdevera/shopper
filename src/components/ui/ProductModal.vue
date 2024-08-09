@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import store from '../../store';
 
   const props = defineProps({
@@ -48,6 +48,13 @@ import store from '../../store';
     get: () => props.modelValue,
     set: (value) => {
       emit('update:modelValue', value)
+    }
+  })
+
+  watch(() => props.modelValue, (value) => {
+    if (value) {
+      // remove the opacity-0 class from the image
+      const img = document.querySelector('.product-img')
     }
   })
 

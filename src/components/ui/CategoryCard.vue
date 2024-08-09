@@ -36,7 +36,7 @@
   </router-link>
 </template>
 
-<style scope lang="postcss">
+<style scoped lang="postcss">
   .category-card {
     @apply aspect-square cursor-pointer shadow-xl hover:shadow-2xl;
 

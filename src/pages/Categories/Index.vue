@@ -8,15 +8,7 @@
 
   const loadingCategories = ref(false)
   const categories = computed(() => {
-    let categories = store.getters['category/allCategories']
-
-    return categories.map(category => {
-      return {
-        id: category.id,
-        name: category.name,
-        image: category.image
-      }
-    })
+    return store.getters['category/allCategories']
   })
 
   const getCategories = async () => {

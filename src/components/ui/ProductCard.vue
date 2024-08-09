@@ -86,7 +86,7 @@
   </d-card>
 </template>
 
-<style scope lang="postcss">
+<style scoped lang="postcss">
   .product-card {
     @apply cursor-pointer shadow-xl hover:shadow-2xl;
 
@@ -94,12 +94,8 @@
       @apply badge badge-ghost p-3 rounded-md absolute top-2 left-2 opacity-70 shadow-lg;
     }
 
-    figure {
-      @apply bg-base-300 !important;
-
-      img {
-        @apply w-full h-full min-w-full object-cover aspect-square;
-      }
+    .product-img {
+      @apply object-cover aspect-square;
     }
   }
 </style>
