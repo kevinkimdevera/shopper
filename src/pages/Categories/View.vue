@@ -60,7 +60,7 @@
     getProducts()
   }
 
-  const getProducts = () => {
+  const getProducts = async () => {
     loadingProducts.value = true
 
     let priceMinValue = priceMin.value
@@ -76,37 +76,14 @@
       priceMinValue = 1;
     }
 
-    store.dispatch('product/fetchProducts', {
+    products.value = await store.dispatch('product/fetchProducts', {
       categoryId: props.id,
       title: search.value,
       price_min: priceMinValue,
       price_max: priceMaxValue
-    }).then((response) => {
-      products.value = response.map((product) => {
-        let productImage = product.images[0];
-
-        /// There's an instance where the product image is a stringified JSON
-        try {
-          productImage = JSON.parse(productImage)[0]
-        } catch (error) {
-          //
-        }
-
-        return {
-          id: product.id,
-          title: product.title,
-          description: product.description,
-          price: parseFloat(product.price),
-          image: productImage,
-        }
-      })
     })
-    .catch((e) => {
 
-    })
-    .finally(() => {
-      loadingProducts.value = false
-    })
+    loadingProducts.value = false
   }
 
   const productModalVisible = ref(false)
@@ -199,19 +176,12 @@
       <p class="my-5">Found {{ products.length }} products.</p>
 
       <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 my-5">
-        <template v-for="product in products">
-          <d-card class="product-card h-full" bordered compact @click="viewProduct(product)">
-            <template #title>
-              <div class="text-lg">{{ product.title }}</div>
-            </template>
-            <template #image-top>
-              <img class="product-img" :src="product.image" :alt="product.name" />
-            </template>
-
-            <p class="text-sm">{{ product.category }}</p>
-            <p class="text-primary font-bold text-xl">&dollar; {{ product.price.toLocaleString('en-US', { minimumFractionDigits: 2 }) }}</p>
-          </d-card>
-        </template>
+        <product-card
+          v-for="product in products"
+          :key="`product-card-${product.id}`"
+          :product="product"
+          @clicked="viewProduct">
+        </product-card>
       </div>
     </template> 
   </template>

@@ -23,13 +23,13 @@
 
 <template>
   <router-link :to="{ name: 'categories.view', params: { id: categoryID } }">
-    <d-card class="category-card image-full" bordered>
+    <d-card class="category-card image-full overflow-hidden md:compact" bordered>
       <template #title>
         <h3 class="text-lg md:text-xl lg:text-2xl">{{ categoryName }}</h3>
       </template>
       <template #image-top>
         <img :src="categoryImage" :alt="categoryName"
-          onerror="this.src='images/tag.png'"
+          onerror="this.classList.add('opacity-0')"
         />
       </template>
     </d-card>
@@ -38,14 +38,13 @@
 
 <style scope lang="postcss">
   .category-card {
-    @apply aspect-square;
+    @apply aspect-square cursor-pointer shadow-xl hover:shadow-2xl;
 
     &.img-full {
       figure {
+        @apply w-full h-full;
         img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+          @apply object-cover aspect-square;
         }
       }
     }

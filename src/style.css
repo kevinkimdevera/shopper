@@ -149,4 +149,13 @@
   .page-loader {
     @apply h-[70vh];
   }
+
+  .card {
+    &:not(.image-full) {
+      figure {
+        @apply bg-base-300 !important;
+      }
+    }
+    
+  }
 }

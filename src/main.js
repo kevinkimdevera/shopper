@@ -23,6 +23,7 @@ import DModal from '@components/ui/Modal.vue';
 
 // Custom Components
 import CategoryCard from '@components/ui/CategoryCard.vue';
+import ProductCard from '@components/ui/ProductCard.vue';
 import ProductModal from '@components/ui/ProductModal.vue';
 
 // Form Components
@@ -44,6 +45,7 @@ app.component('d-textarea', DTextarea);
 
 // Custom Components
 app.component('category-card', CategoryCard);
+app.component('product-card', ProductCard);
 app.component('product-modal', ProductModal);
 
 app.use(router)

@@ -40,7 +40,7 @@
   </div>
 
   <template v-if="loadingCategories">
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    <div class="categories-grid">
       <div class="flex w-full flex-col gap-4" v-for="(item, index) in 12" :key="index">
         <div class="skeleton aspect-square w-full"></div>
       </div>
@@ -59,7 +59,7 @@
   </template> 
 
   <template v-else>
-    <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-6 gap-4">
+    <div class="categories-grid">
       <category-card
         v-for="category in categories"
         :key="`category-card-${category.id}`"
@@ -70,6 +70,10 @@
 </template>
 
 <style scoped lang="postcss">
+  .categories-grid {
+    @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4;
+  }
+
   .card {
     @apply cursor-pointer shadow-xl hover:shadow-2xl;
 
