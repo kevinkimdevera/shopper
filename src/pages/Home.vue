@@ -104,22 +104,24 @@
 
         <template v-else>
           <template v-for="category in categories">
-            <d-card class="category-card image-full" bordered>
-              <template #title>
-                <h3 class="text-lg md:text-xl lg:text-2xl">{{ category.name }}</h3>
-              </template>
-              <template #image-top>
-                <img class="product-img" :src="category.image" :alt="category.name"
-                  onerror="this.src='images/tag.png'"
-                />
-              </template>
-            </d-card>
+            <router-link :to="{ name: 'categories.view', params: { id: category.id } }">
+              <d-card class="category-card image-full" bordered>
+                <template #title>
+                  <h3 class="text-lg md:text-xl lg:text-2xl">{{ category.name }}</h3>
+                </template>
+                <template #image-top>
+                  <img class="product-img" :src="category.image" :alt="category.name"
+                    onerror="this.src='images/tag.png'"
+                  />
+                </template>
+              </d-card>
+            </router-link>
           </template>
         </template>
       </div>
 
       <div class="flex justify-center mt-5">
-        <d-button wide size="lg" color="primary">View Categories</d-button>
+        <d-button :to="{ name: 'categories.index' }" wide size="lg" color="primary">View All Categories</d-button>
       </div>
     </section>
 
