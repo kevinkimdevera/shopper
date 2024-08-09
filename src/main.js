@@ -18,10 +18,11 @@ import App from '@/App.vue'
 // UI Components
 import DButton from '@components/ui/Button.vue'
 import DCard from '@components/ui/Card.vue'
-import DDropdown from './components/ui/Dropdown.vue';
-import DModal from './components/ui/Modal.vue';
+import DDropdown from '@components/ui/Dropdown.vue';
+import DModal from '@components/ui/Modal.vue';
 
 // Custom Components
+import CategoryCard from '@components/ui/CategoryCard.vue';
 import ProductModal from '@components/ui/ProductModal.vue';
 
 // Form Components
@@ -41,6 +42,8 @@ app.component('d-dropdown', DDropdown);
 app.component('d-modal', DModal);
 app.component('d-textarea', DTextarea);
 
+// Custom Components
+app.component('category-card', CategoryCard);
 app.component('product-modal', ProductModal);
 
 app.use(router)

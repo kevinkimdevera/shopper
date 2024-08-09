@@ -59,22 +59,12 @@
   </template> 
 
   <template v-else>
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-      <div v-for="category in categories" :key="category.id">
-        <router-link :to="{ name: 'categories.view', params: { id: category.id } }">
-          <d-card class="category-card image-full" bordered>
-            <template #image-top>
-              <img class="product-img" :src="category.image" :alt="category.name"
-                onerror="this.src='images/tag.png'"
-              />
-            </template>
-            <template #title>
-              <h3 class="text-lg md:text-xl lg:text-2xl">{{ category.name }}</h3>
-            </template>
-            
-          </d-card>
-        </router-link>
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-6 gap-4">
+      <category-card
+        v-for="category in categories"
+        :key="`category-card-${category.id}`"
+        :category="category">
+      </category-card>
     </div>
   </template>
 </template>
