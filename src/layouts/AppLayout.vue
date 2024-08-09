@@ -80,18 +80,18 @@
             <template v-else>
               <template v-for="item in cartItems" :key="item.id">
                 <div class="rounded-lg flex justify-between hover:bg-base-300 p-3 cursor-pointer" >
-                  <div class="flex gap-3 items-center">
+                  <div class="flex flex-1 max-w-[200px] gap-3 items-center">
                     <img :src="item.image" :alt="item.title" class="w-12 h-12 object-cover rounded-lg" />
                     <div class="overflow-hidden">
                       <p class="text-sm font-bold truncate overflow-ellipsis">{{ item.title }}</p>
                       <p class="text-sm">&dollar;{{ item.price.toLocaleString('en-US', { minimumFractionDigits: 2 }) }}</p>
                     </div>
                   </div>
-                  <div>
-                      <d-button color="error" @click="removeFromCart(item.id)" shape="circle" ghost size="sm">
-                        <i class="icon">close</i>
-                      </d-button>
-                    </div>
+                  <div class="flex-none">
+                    <d-button color="error" @click="removeFromCart(item.id)" shape="circle" ghost size="sm">
+                      <i class="icon">close</i>
+                    </d-button>
+                  </div>
                 </div>
               </template>
             </template>
