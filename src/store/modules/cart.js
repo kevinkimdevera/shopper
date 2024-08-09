@@ -18,7 +18,7 @@ const getters = {
   total: state => {
     let total = state.items.reduce((acc, item) => acc + parseFloat(item.price), 0)
 
-    return parseFloat(total).toFixed(2)
+    return parseFloat(total).toLocaleString('en-US', { minimumFractionDigits: 2 })
   },
 
   exists: (state) => (id) => {

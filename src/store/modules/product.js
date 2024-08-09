@@ -59,7 +59,19 @@ const actions = {
     }
 
     return api.get('products', filters)
-  }
+  },
+
+  save ({ commit }, data) {
+    return api.post('products', data)
+  },
+
+  update ({ commit }, payload) {
+    return api.put(`products/${payload.id}`, payload.data)
+  },
+
+  delete ({ commit }, id) {
+    return api.destroy(`products/${id}`)
+  },
 }
 
 

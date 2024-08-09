@@ -1,4 +1,5 @@
 import { useApi } from "@composables/api"
+import { all } from "axios"
 
 const api = useApi()
 
@@ -8,8 +9,12 @@ const state = {
 
 const getters = {
   categories: state => {
-    // Get only the categories with id: 1-5
-    return state.categories.filter(category => category.id <= 5)
+    // Get only the first 5 categories
+    return state.categories.slice(0, 5)
+  },
+
+  allCategories: state => {
+    return state.categories
   }
 }
 
@@ -28,6 +33,22 @@ const actions = {
       .catch(error => {
         console.error(error)
       })
+  },
+
+  async show ({ commit }, id) {
+    return api.get(`categories/${id}`)
+  },
+
+  save ({ commit }, data) {
+    return api.post('categories', data)
+  },
+
+  update ({ commit }, payload) {
+    return api.put(`categories/${payload.id}`, payload.data)
+  },
+
+  delete ({ commit }, id) {
+    return api.destroy(`categories/${id}`)
   },
 
   getProducts ({ commit }, category) {

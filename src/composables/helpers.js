@@ -26,6 +26,7 @@ const sizes = [
   'sm',
   'md',
   'lg',
+  'xl',
 ]
 
 // If the specified color is not in the list, return the default color
