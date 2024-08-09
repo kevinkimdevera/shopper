@@ -52,6 +52,7 @@
           </div>
         </label>
 
+        <!-- Cart -->
         <d-dropdown align="end" class="card w-[320px]">
           <template #label>
             <d-button shape="square" ghost>
@@ -78,20 +79,19 @@
 
             <template v-else>
               <template v-for="item in cartItems" :key="item.id">
-                <div class="rounded-lg flex items-center justify-between hover:bg-base-300 p-3 cursor-pointer" >
-                  <div class="flex gap-3">
+                <div class="rounded-lg flex justify-between hover:bg-base-300 p-3 cursor-pointer" >
+                  <div class="flex gap-3 items-center">
                     <img :src="item.image" :alt="item.title" class="w-12 h-12 object-cover rounded-lg" />
-                    <div>
-                      <p class="text-sm font-bold mb-2">{{ item.title }}</p>
-                      <p class="text-xs text-neutral-content">&dollar;{{ item.price }}</p>
+                    <div class="overflow-hidden">
+                      <p class="text-sm font-bold truncate overflow-ellipsis">{{ item.title }}</p>
+                      <p class="text-sm">&dollar;{{ item.price.toLocaleString('en-US', { minimumFractionDigits: 2 }) }}</p>
                     </div>
-                    <div>
+                  </div>
+                  <div>
                       <d-button color="error" @click="removeFromCart(item.id)" shape="circle" ghost size="sm">
                         <i class="icon">close</i>
                       </d-button>
                     </div>
-
-                  </div>
                 </div>
               </template>
             </template>
@@ -104,45 +104,50 @@
           </div>
         </d-dropdown>
 
-        <d-button shape="square" ghost>
+        <d-button shape="square" ghost :to="{ name: 'manage.index' }">
           <i class="icon">settings</i>
         </d-button>
       </div>
     </div>
 
-    <main class="p-5 mt-[64px]">
-      <router-view></router-view>
-    </main>
+    <main class="mt-[64px] flex flex-col">
+      <section class="p-5 flex-1">
+        <router-view></router-view>
+      </section>
 
-    <footer class="footer bg-base-200 text-base-content p-10">
-      <aside>
-        <span class="icon text-5xl">
-          shopping_bag
-        </span>
-        <p class="text-xl">
-          Shopper
-        </p>
-        <p>&copy; {{ new Date().getFullYear() }}</p>
-      </aside>
-      <nav>
-        <h6 class="footer-title">Collection</h6>
-        <a class="link link-hover">Products</a>
-        <a class="link link-hover">Categories</a>
-      </nav>
-      <nav>
-        <h6 class="footer-title">Company</h6>
-        <a class="link link-hover">About us</a>
-        <a class="link link-hover">Contact</a>
-      </nav>
-      <nav>
-        <h6 class="footer-title">Legal</h6>
-        <a class="link link-hover">Terms of use</a>
-        <a class="link link-hover">Privacy policy</a>
-        <a class="link link-hover">Cookie policy</a>
-      </nav>
-    </footer>
+      <footer class="flex-none footer bg-base-200 text-base-content p-10">
+        <aside>
+          <span class="icon text-5xl">
+            shopping_bag
+          </span>
+          <p class="text-xl">
+            Shopper
+          </p>
+          <p>&copy; {{ new Date().getFullYear() }}</p>
+        </aside>
+        <nav>
+          <h6 class="footer-title">Collection</h6>
+          <a class="link link-hover">Products</a>
+          <a class="link link-hover">Categories</a>
+        </nav>
+        <nav>
+          <h6 class="footer-title">Company</h6>
+          <a class="link link-hover">About us</a>
+          <a class="link link-hover">Contact</a>
+        </nav>
+        <nav>
+          <h6 class="footer-title">Legal</h6>
+          <a class="link link-hover">Terms of use</a>
+          <a class="link link-hover">Privacy policy</a>
+          <a class="link link-hover">Cookie policy</a>
+        </nav>
+      </footer>
+    </main>
   </div>
 </template>
 
 <style scoped>
+  main {
+    min-height: calc(100vh - 64px);
+  }
 </style>

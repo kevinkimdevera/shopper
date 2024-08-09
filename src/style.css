@@ -59,7 +59,7 @@
 
 @layer components {
   .form-input {
-    @apply focus:outline-none !important;
+    @apply outline-none focus:outline-none !important;
   }
 
   .btn {
@@ -117,5 +117,36 @@
     .btn {
         @apply btn-ghost text-base-content btn-sm;
     }
+  }
+
+  .form-control {
+    @apply w-full;
+
+    &.has-error {
+        .form-input {
+            @apply input-error !important;
+        }
+
+        .file-input {
+            @apply file-input-error !important;
+        }
+
+        .label {
+          .label-text, .label-text-alt {
+            @apply text-error !important;
+          }
+        }
+    }
+  }
+
+  .modal {
+    /* Remove Max width */
+    .modal-box {
+        @apply rounded-lg bg-base-200 max-w-none !important;
+    }
+  }
+
+  .page-loader {
+    @apply h-[70vh];
   }
 }

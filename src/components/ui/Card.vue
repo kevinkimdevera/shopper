@@ -17,10 +17,19 @@
             type: String,
             default: '',
         },
+
+        compact: {
+            type: Boolean,
+            default: false,
+        },
     })
 
     const cardBorderedClass = computed(() => {
         return props.bordered ? 'card-bordered' : null
+    })
+
+    const cardCompactClass = computed(() => {
+        return props.compact ? 'compact' : null
     })
 
     const cardColorClass = computed(() => {
@@ -38,6 +47,7 @@
             'card',
             cardColorClass.value,
             cardBorderedClass.value,
+            cardCompactClass.value,
             ...specifiedClasses.value,
         ]
     })
@@ -49,7 +59,7 @@
           <slot name="image-top"></slot>
         </figure>
         <div class="card-body">
-            <div class="card-title">
+            <div class="card-title justify-between">
                 <slot name="title"></slot>
             </div>
             <slot></slot>
