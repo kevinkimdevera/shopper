@@ -51,9 +51,6 @@
     form.name = null
     form.image = null
     selectedFile.value = null
-
-    console.log(form.image)
-
   }
 
   const clearErrors = () => {

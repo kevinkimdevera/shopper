@@ -72,7 +72,9 @@
   }
 
   const getProducts = async () => {
-    console.log('getProducts', filters.value)
+    // scroll to top
+    window.scrollTo(0, 0)
+
     loading.value = true
     products.value = await store.dispatch('product/fetchProducts', filters.value)
     loading.value = false
