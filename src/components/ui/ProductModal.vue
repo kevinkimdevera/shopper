@@ -78,9 +78,9 @@ import store from '../../store';
           <img class="product-img" :src="productImage" :alt="productTitle" />
         </template>
 
-        <p class="text-primary font-bold text-3xl">&dollar; {{ productPrice }}</p>
+        <p class="text-primary font-bold text-3xl my-3">&dollar; {{ productPrice }}</p>
 
-        <p class="my-5">{{ productDescription }}</p>
+        <p class="mb-3">{{ productDescription }}</p>
 
         <template #actions>
           <d-button class="w-full" color="error" @click="removeFromCart" v-if="alreadyInCart">

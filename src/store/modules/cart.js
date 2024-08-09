@@ -15,6 +15,12 @@ const getters = {
     return state.items.length
   },
 
+  total: state => {
+    let total = state.items.reduce((acc, item) => acc + parseFloat(item.price), 0)
+
+    return parseFloat(total).toFixed(2)
+  },
+
   exists: (state) => (id) => {
     return state.items.find(item => item.id === id)
   }

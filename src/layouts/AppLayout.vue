@@ -8,6 +8,7 @@
 
   const cartItems = computed(() => store.getters['cart/items'])
   const cartItemCount = computed(() => store.getters['cart/items_count'])
+  const cartTotal = computed(() => store.getters['cart/total'])
 
   const darkMode = ref(true);
 
@@ -24,6 +25,10 @@
   // Autoload dark mode
   if (localStorage.getItem('darkMode')) {
     darkMode.value = localStorage.getItem('darkMode') === 'true'
+  }
+
+  const removeFromCart = (productId) => {
+    store.dispatch('cart/removeItem', productId)
   }
 </script>
 
@@ -47,15 +52,60 @@
           </div>
         </label>
 
-        <d-button shape="square" ghost>
-          <div class="indicator">
-            <span class="indicator-item badge badge-secondary" v-if="cartItemCount > 0">{{ cartItemCount }}</span>
-            <i class="icon">shopping_cart</i>
+        <d-dropdown align="end" class="card w-[320px]">
+          <template #label>
+            <d-button shape="square" ghost>
+              <div class="indicator">
+                <span class="indicator-item badge badge-secondary" v-if="cartItemCount > 0">{{ cartItemCount }}</span>
+                <i class="icon">shopping_cart</i>
+              </div>
+            </d-button>
+          </template>
+
+          <div class="card-title justify-between p-3 text-sm border-b border-b-base-100">
+            <div>Cart</div>
+
+            <div>{{ cartItemCount }} items</div>
           </div>
-        </d-button>
+
+          <div class="card-body p-3 h-[320px] overflow-y-auto custom-scroll">
+            <div class="text-center h-[320px] flex justify-center items-center text-neutral-content" v-if="cartItemCount < 1">
+              <div>
+                <span class="icon text-5xl mb-3">shopping_cart</span>
+                <p>Your cart is empty</p>
+              </div>
+            </div>
+
+            <template v-else>
+              <template v-for="item in cartItems" :key="item.id">
+                <div class="rounded-lg flex items-center justify-between hover:bg-base-300 p-3 cursor-pointer" >
+                  <div class="flex gap-3">
+                    <img :src="item.image" :alt="item.title" class="w-12 h-12 object-cover rounded-lg" />
+                    <div>
+                      <p class="text-sm font-bold mb-2">{{ item.title }}</p>
+                      <p class="text-xs text-neutral-content">&dollar;{{ item.price }}</p>
+                    </div>
+                    <div>
+                      <d-button color="error" @click="removeFromCart(item.id)" shape="circle" ghost size="sm">
+                        <i class="icon">close</i>
+                      </d-button>
+                    </div>
+
+                  </div>
+                </div>
+              </template>
+            </template>
+          </div>
+
+          <div class="card-title justify-between p-3 text-sm border-t border-t-base-100">
+            <div>Total</div>
+
+            <div>&dollar; {{ cartTotal }}</div>
+          </div>
+        </d-dropdown>
 
         <d-button shape="square" ghost>
-          <i class="icon">account_circle</i>
+          <i class="icon">settings</i>
         </d-button>
       </div>
     </div>

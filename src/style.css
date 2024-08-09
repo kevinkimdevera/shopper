@@ -36,6 +36,25 @@
   .icon {
     @apply material-icons-outlined;
   }
+
+
+  * {
+    scrollbar-color: unset !important; 
+
+    /* Customize Scroll */
+    &::-webkit-scrollbar {
+      @apply w-2 !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        @apply bg-gray-500 hover:bg-gray-400 active:bg-gray-500 rounded-full !important;
+    }
+
+    &::-webkit-scrollbar-track {
+        @apply bg-neutral rounded-full !important;
+    }
+  }
+  
 }
 
 @layer components {

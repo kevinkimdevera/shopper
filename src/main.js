@@ -18,6 +18,7 @@ import App from '@/App.vue'
 // UI Components
 import DButton from '@components/ui/Button.vue'
 import DCard from '@components/ui/Card.vue'
+import DDropdown from './components/ui/Dropdown.vue';
 import ProductModal from '@components/ui/ProductModal.vue';
 
 // Form Components
@@ -30,6 +31,7 @@ const app = createApp(App);
 app.component('d-button', DButton);
 app.component('d-input', DInput);
 app.component('d-card', DCard);
+app.component('d-dropdown', DDropdown);
 app.component('product-modal', ProductModal);
 
 app.use(router)

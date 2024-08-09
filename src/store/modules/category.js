@@ -8,7 +8,8 @@ const state = {
 
 const getters = {
   categories: state => {
-    return state.categories
+    // Get only the categories with id: 1-5
+    return state.categories.filter(category => category.id <= 5)
   }
 }
 
