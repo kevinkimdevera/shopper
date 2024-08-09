@@ -207,7 +207,7 @@
     <template #title>
       <h3 class="text-lg md:text-xl lg:text-2xl">Categories</h3>
 
-      <div class="flex justify-end">
+      <div class="flex justify-end items-center">
         <d-button size="sm" color="primary" @click="openFormModal">Add Category</d-button>
       </div>
     </template>

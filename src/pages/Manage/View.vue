@@ -75,35 +75,38 @@
       })
   }
 
+  const productSearch = ref('')
   const getProducts = () => {
     loadingProducts.value = true
-    store.dispatch('category/getProducts', props.id)
-      .then((response) => {
-        products.value = response.map((product) => {
-          let productImage = product.images[0];
+    store.dispatch('product/fetchProducts', {
+      categoryId: props.id,
+      title: productSearch.value
+    }).then((response) => {
+      products.value = response.map((product) => {
+        let productImage = product.images[0];
 
-          /// There's an instance where the product image is a stringified JSON
-          try {
-            productImage = JSON.parse(productImage)[0]
-          } catch (error) {
-            //
-          }
+        /// There's an instance where the product image is a stringified JSON
+        try {
+          productImage = JSON.parse(productImage)[0]
+        } catch (error) {
+          //
+        }
 
-          return {
-            id: product.id,
-            title: product.title,
-            description: product.description,
-            price: parseFloat(product.price),
-            image: productImage,
-          }
-        })
+        return {
+          id: product.id,
+          title: product.title,
+          description: product.description,
+          price: parseFloat(product.price),
+          image: productImage,
+        }
       })
-      .catch((e) => {
+    })
+    .catch((e) => {
 
-      })
-      .finally(() => {
-        loadingProducts.value = false
-      })
+    })
+    .finally(() => {
+      loadingProducts.value = false
+    })
   }
 
   const clearForm = () => {
@@ -297,7 +300,14 @@
       <template #title>
         <h3 class="text-lg md:text-xl lg:text-2xl">Products</h3>
 
-        <div class="flex justify-end">
+        <div class="flex justify-end items-center gap-3">
+          <form class="input-group w-[250px]" @submit.prevent="getProducts">
+              <d-input size="sm" placeholder="Search..." ghost v-model="productSearch" />
+              <d-button size="sm" shape="square">
+                  <span class="icon">search</span>
+              </d-button>
+          </form>
+
           <d-button size="sm" color="primary" @click="openFormModal">Add Product</d-button>
         </div>
       </template>
