@@ -51,13 +51,6 @@ import store from '../../store';
     }
   })
 
-  watch(() => props.modelValue, (value) => {
-    if (value) {
-      // remove the opacity-0 class from the image
-      const img = document.querySelector('.product-img')
-    }
-  })
-
   const addToCart = () => {
     store.dispatch('cart/addItem', props.product)
   }
@@ -85,6 +78,7 @@ import store from '../../store';
           <img class="product-img aspect-square object-cover" 
             :src="productImage"
             :alt="productTitle"
+            onload="this.classList.remove('opacity-0')"
             onerror="this.classList.add('opacity-0')" />
         </template>
 
